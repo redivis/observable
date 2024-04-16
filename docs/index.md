@@ -55,7 +55,7 @@ Explore this dashboard, and build your own static site
 
 <div class="grid grid-cols-3">
   <div class="card">
-    Explore the visualizations and data sources on the <a href="/redivis">GHCN Weather data dashboard</a>.
+    Explore the visualizations and data sources on the <a href="./redivis">GHCN Weather data dashboard</a>.
   </div>
   <div class="card">
     View the source code on our <a href="https://github.com/redivis/observable">Github</a> and build your own site following the <a href="https://observablehq.com/framework/getting-started">Observable guide</a>.
