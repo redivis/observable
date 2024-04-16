@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>GHCN Weather data | Redivis on Observable</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.css">
+<link rel="modulepreload" href="./_import/components/globeMap.js?sha=aefaa79b824417d05e36bd5cadcd5e86e9e27f023a2b33bb6493b8e37b71d7b6">
+<link rel="modulepreload" href="./_import/components/hexbinPlot.js?sha=461a5395bb50c79e78b5741ef8be782e2874728aec581a21bd3332ffaa2cf1bf">
+<link rel="modulepreload" href="./_observablehq/client.js">
+<link rel="modulepreload" href="./_observablehq/runtime.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.js">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6.14/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/binary-search-bounds@2.0.5/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-array@3.2.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-axis@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-brush@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-chord@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-color@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-contour@4.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-delaunay@6.0.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-dispatch@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-drag@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-dsv@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-ease@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-fetch@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-force@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-format@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-geo@3.1.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-hierarchy@3.1.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-interpolate@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-path@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-polygon@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-quadtree@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-random@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-scale-chromatic@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-scale@4.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-selection@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-shape@3.2.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-time-format@4.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-time@3.1.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-timer@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-transition@3.0.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3-zoom@3.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/delaunator@5.0.0/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/htl@0.3.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/internmap@2.0.3/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/interval-tree-1d@1.0.4/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/isoformat@0.2.1/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/robust-predicates@3.0.2/+esm">
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/+esm">
+<script type="module">
+
+import {define} from "./_observablehq/client.js";
+
+define({id: "8f716e3c", inputs: ["FileAttachment"], outputs: ["hexbinPlot","globeMap","world","stations","precipitation"], files: [{"name":"./static/countries-110m.json","mimeType":"application/json","path":"./_file/static/countries-110m.json"},{"name":"./data/redivis-python-geodata.json","mimeType":"application/json","path":"./_file/data/redivis-python-geodata.json"},{"name":"./data/redivis-js-precipitation.json","mimeType":"application/json","path":"./_file/data/redivis-js-precipitation.json"}], body: async (FileAttachment) => {
+const [{default: hexbinPlot}, {default: globeMap}] = await Promise.all([import("./_import/components/hexbinPlot.js?sha=461a5395bb50c79e78b5741ef8be782e2874728aec581a21bd3332ffaa2cf1bf"), import("./_import/components/globeMap.js?sha=aefaa79b824417d05e36bd5cadcd5e86e9e27f023a2b33bb6493b8e37b71d7b6")]);
+
+// fetch data
+const world = await FileAttachment('./static/countries-110m.json').json();
+const stations = await FileAttachment("./data/redivis-python-geodata.json").json();
+const precipitation = await FileAttachment('./data/redivis-js-precipitation.json').json();
+return {hexbinPlot,globeMap,world,stations,precipitation};
+}});
+
+define({id: "b0f64445", inputs: ["view","Inputs"], outputs: ["longitude"], body: (view,Inputs) => {
+const longitude = view(Inputs.range([-180, 180], { value: 110, step: 5, label: "Longitude (rotate!)"}));
+return {longitude};
+}});
+
+define({id: "054d8717", inline: true, inputs: ["resize","globeMap","stations","world","longitude","display"], body: async (resize,globeMap,stations,world,longitude,display) => {
+display(await(
+resize((width) => globeMap(stations, world, {longitude,width}))
+))
+}});
+
+define({id: "ec672384", inline: true, inputs: ["resize","hexbinPlot","precipitation","display"], body: async (resize,hexbinPlot,precipitation,display) => {
+display(await(
+resize((width) => hexbinPlot(precipitation, {width, fillTransform: 'mean', fillAccessor: (d) => d.annual_precip/100, title: 'Average precipitation (cm)', x: 'longitude', y: 'latitude' }))
+))
+}});
+
+define({id: "ca2579e5", inputs: ["display","world"], body: (display,world) => {
+display(world);
+}});
+
+define({id: "72f82de2", inputs: ["display","stations"], body: (display,stations) => {
+display(stations)
+}});
+
+define({id: "af007e54", inputs: ["display","precipitation"], body: (display,precipitation) => {
+display(precipitation)
+}});
+
+</script>
+<input id="observablehq-sidebar-toggle" type="checkbox" title="Toggle sidebar">
+<label id="observablehq-sidebar-backdrop" for="observablehq-sidebar-toggle"></label>
+<nav id="observablehq-sidebar">
+  <ol>
+    <label id="observablehq-sidebar-close" for="observablehq-sidebar-toggle"></label>
+    <li class="observablehq-link"><a href="./">Redivis on Observable</a></li>
+  </ol>
+  <ol>
+    <li class="observablehq-link observablehq-link-active"><a href="./redivis">GHCN Weather data</a></li>
+  </ol>
+</nav>
+<script>{Object.assign(document.createElement("a"),{href:""}).password&&location.replace(location.href);const e=document.querySelector("#observablehq-sidebar"),o=document.querySelector("#observablehq-sidebar-toggle"),r=sessionStorage.getItem("observablehq-sidebar");r?o.checked=r==="true":o.indeterminate=!0;for(const t of document.querySelectorAll("#observablehq-sidebar summary")){const s=t.parentElement;switch(sessionStorage.getItem(`observablehq-sidebar:${t.textContent}`)){case"true":s.open=!0;break;case"false":s.classList.contains("observablehq-section-active")||(s.open=!1);break}}addEventListener("beforeunload",()=>sessionStorage.setItem("observablehq-sidebar-scrolly",`${e.scrollTop}`));const a=sessionStorage.getItem("observablehq-sidebar-scrolly");a!=null&&(e.style.cssText="overflow: hidden;",e.scrollTop=+a,e.style.cssText="");}</script>
+<aside id="observablehq-toc" data-selector="#observablehq-main h1:not(:first-of-type), #observablehq-main h2:not(h1 + h2):has(a.observablehq-header-anchor)">
+<nav>
+<div>Contents</div>
+<ol>
+<li class="observablehq-secondary-link"><a href="#visualizations">Visualizations</a></li>
+<li class="observablehq-secondary-link"><a href="#data-sources">Data sources</a></li>
+</ol>
+</nav>
+</aside>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<h1 id="ghcn-weather-data" tabindex="-1"><a class="observablehq-header-anchor" href="#ghcn-weather-data">GHCN Weather data</a></h1>
+<p><em>Data imported from <a href="https://redivis.com/datasets/7br5-41440fjzk">Redivis</a> and visualized with <a href="https://observablehq.com/plot/">Observable Plot</a></em></p>
+<div id="cell-8f716e3c" class="observablehq observablehq--block"></div>
+<h2 id="visualizations" tabindex="-1"><a class="observablehq-header-anchor" href="#visualizations">Visualizations</a></h2>
+<div id="cell-b0f64445" class="observablehq observablehq--block"></div>
+<div class="grid grid-cols-2">
+  <div class="card">
+    <span id="cell-054d8717" class="observablehq--loading"></span>
+  </div>
+  <div class="card">
+    <span id="cell-ec672384" class="observablehq--loading"></span>
+  </div>
+</div>
+<h2 id="data-sources" tabindex="-1"><a class="observablehq-header-anchor" href="#data-sources">Data sources</a></h2>
+<p><strong>Country borders</strong> <em>(loaded from a static file)</em></p>
+<div id="cell-ca2579e5" class="observablehq observablehq--block"></div>
+<p><strong>Weather stations</strong> <em>(loaded via the <a href="https://apidocs.redivis.com/client-libraries/redivis-python">Redivis Python client library</a>)</em></p>
+<div id="cell-72f82de2" class="observablehq observablehq--block observablehq--loading"></div>
+<p><strong>Annualized precipitation data</strong> <em>(loaded via the <a href="https://apidocs.redivis.com/client-libraries/redivis-js">Redivis JS client library</a>)</em></p>
+<div id="cell-af007e54" class="observablehq observablehq--block observablehq--loading"></div>
+</main>
+<footer id="observablehq-footer">
+<nav><a rel="prev" href="./"><span>Redivis on Observable</span></a></nav>
+<div>Built with <a href="https://observablehq.com/" target="_blank">Observable</a> on <a title="2024-04-16T16:26:54">Apr 16, 2024</a>.</div>
+</footer>
+</div>

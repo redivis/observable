@@ -1,2 +1,0 @@
-pandas==2.2.0
-redivis==0.14.7
