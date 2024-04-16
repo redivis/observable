@@ -25,3 +25,8 @@ jobs:
               pip install -r requirements.txt
           - name: Build site
             run: npm install && npm run build
+          - name: Deploy 🚀
+            uses: JamesIves/github-pages-deploy-action@4.0.0
+            with:
+              branch: gh-pages # The branch the action should deploy to.
+              folder: dist # The folder the action should deploy
